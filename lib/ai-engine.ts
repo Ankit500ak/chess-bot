@@ -1,5 +1,26 @@
-import type { Chess } from "chess.js"
+import { Chess } from "chess.js"
 import type { PlayerStyle } from "./pgn-parser"
+// Add type definitions for chess.js
+interface ChessMove {
+  from: string
+  to: string
+  flags: string
+  piece: string
+  captured?: string
+  san: string
+}
+
+interface ChessGame {
+  moves: (options?: { verbose?: boolean }) => ChessMove[]
+  fen: () => string
+  history: (options?: { verbose?: boolean }) => ChessMove[]
+  isGameOver: () => boolean
+  isCheckmate: () => boolean
+  isStalemate: () => boolean
+  turn: () => string
+  move: (move: string | { from: string, to: string, promotion?: string }) => ChessMove | null
+  load: (fen: string) => boolean
+}
 
 export type AIPersonality = "defensive-tactical" | "aggressive" | "positional" | "balanced" | "style-based"
 
